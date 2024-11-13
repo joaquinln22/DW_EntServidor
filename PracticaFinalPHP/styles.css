@@ -20,13 +20,11 @@ input{
     float: right;
 }
 
-.atras1{
-    width: 200px;
-    float: left;
-    margin-top: 0px;
+.boton1{
+    margin-right: 130px;
 }
 
-.atras2{
+.atras1{
     float: left;
     margin-left: 135px;
 }

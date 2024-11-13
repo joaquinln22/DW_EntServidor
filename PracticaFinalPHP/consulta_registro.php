@@ -10,8 +10,6 @@
 
  	//ejecutamos la sentencia SQL, $conn del archivo conexion
  	mysqli_query($conn, $consulta);
- 	//si tienes imágenes necesitas un copy
- COPY($_FILES["imagen"]["tmp_name"], $ruta);
- //redireccionamos a la web que quieras
- header("LOCATION:pagina.php");
+ 	//redireccionamos a la web que quieras
+ 	header("LOCATION:pagina.php");
 ?>

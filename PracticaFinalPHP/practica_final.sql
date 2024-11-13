@@ -21,6 +21,10 @@ SET time_zone = "+00:00";
 -- Base de datos: `practica_final`
 --
 
+DROP DATABASE IF EXISTS `practica_final`;
+CREATE DATABASE IF NOT EXISTS `practica_final` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `practica_final`;
+
 -- --------------------------------------------------------
 
 --
