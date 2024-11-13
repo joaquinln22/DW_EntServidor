@@ -1,7 +1,9 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Listado de Productos</title>
 </head>
 
 <body>
@@ -12,9 +14,9 @@
 include ("conexion.php");
 
 //creamos la sentencia SQL
-$consulta="select * from productos";
+$consulta="SELECT * FROM productos";
 
-$result = mysqli_query($conn ,$consulta);
+$result = mysqli_query($conn, $consulta);
 
 //Imprimos el error si se ha producido. mysql_error siempre va a mostrar el error de la última función mysql ejecutada
 echo mysqli_error($conn);
@@ -23,8 +25,6 @@ echo mysqli_error($conn);
 
 while($row = mysqli_fetch_array($result))
 {
-	
-	
 	echo "<strong>Código: ".$row['codigo']. "</strong> <br>";
 	echo "Producto: ".$row['producto']. " <br>";
 	echo "Detalles: ".$row['detalle']. " <br>";
@@ -32,7 +32,6 @@ while($row = mysqli_fetch_array($result))
 	echo "Descuento: ".$row['descuento']. "% <br>";
 	echo "<img width=250 height=250 src=".$row['imagen'].">"."<br>";
 	echo "<br>";
-	
 	
 	//Imprimos el error si se ha producido. mysql_error siempre va a mostrar el error de la última función mysql ejecutada
 	echo mysqli_error($conn);
@@ -44,4 +43,5 @@ mysqli_close($conn);
 
 ?>
 <p><a href="menu.php"> Volver al menu</a></p>
-</body></html>
+</body>
+</html>

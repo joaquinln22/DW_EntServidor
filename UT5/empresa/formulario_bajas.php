@@ -6,7 +6,7 @@
 
 
 <body>
-<h1 align="center"> <u> FORMULARIO DE BAJAS </u> </h1>
+<h1> <u> FORMULARIO DE BAJAS </u> </h1>
 <?php
 //Estableciendo la conexión
 include ("conexion.php");
@@ -29,7 +29,7 @@ while($row = mysqli_fetch_array($result))
 	echo "Detalles: ".$row['detalle']. " <br>";
 	echo "Precio: ".$row['precio']. " € <br>";
 	echo "Descuento: ".$row['descuento']. "% <br>";
-	echo "<img width=250 height=250 src=images/".$row['imagen'].">"."<br>";
+	echo "<img width=250 height=250 src=".$row['imagen'].">"."<br>";
 	echo "<a href=bajas.php?codigo=$cod>Eliminar</a><br>";
 	echo "<br>";
 	
