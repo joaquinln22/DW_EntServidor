@@ -1,0 +1,39 @@
+*{
+    font-family: "Arial", sans-serif;
+}
+
+header h1{
+    text-decoration: underline;
+    text-align: center;
+}
+
+body p a{
+    color: red;
+}
+
+body{
+    width: 350px;
+    float: left;
+}
+
+input{
+    float: right;
+}
+
+.atras1{
+    width: 200px;
+    float: left;
+    margin-top: 0px;
+}
+
+.atras2{
+    float: left;
+    margin-left: 135px;
+}
+
+.rol{
+    width: 200px;
+    float: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

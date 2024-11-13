@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer Formulario</title>
+</head>
+<body>
+    <form action="datosform.html" method="post" name="miform">
+        Nombre:
+        <input name="nombre" type="text" maxlength="20" size="15">
+        <br>Email:
+        <input name="email" type="text" maxlength="50" size="15">
+        <br>Comentarios:
+        <br><textarea name="comentario" cols="50" rows="5">Aquí comienza el comentario</textarea>
+        <br>Nivel de estudios:
+        <select name="estudios">
+            <option>ESO</option>
+            <option>Bachillerato</option>
+            <option>Grado universitario</option>
+        </select>
+        <br>Género:<br>
+        <input name="opcion" type="radio" value="hombre">Hombre<br>
+        <input name="opcion" type="radio" value="mujer">Mujer<br>
+        <input type="checkbox" name="opcion1" value="a">Deseo recibir información vía email<br>
+        <input type="submit" value="Enviar información"> <input type="reset" value="Borra toda la información">
+    </form>
+    
+</body>
+
+</html>
