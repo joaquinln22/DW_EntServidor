@@ -35,7 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         	exit();
 		}
     } else {
-        echo "Usuario o contraseña incorrectos.";
+		echo "	<script>
+					alert('Usuario o contraseña incorrectos.');
+					window.location.href='inicio_sesion.php';
+				</script>";
 	}    
 }
 
