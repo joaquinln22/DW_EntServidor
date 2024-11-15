@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2024 a las 02:23:13
+-- Tiempo de generación: 15-11-2024 a las 05:41:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -20,10 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `practica_final`
 --
-
-DROP DATABASE IF EXISTS `practica_final`;
-CREATE DATABASE IF NOT EXISTS `practica_final` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `practica_final`;
 
 -- --------------------------------------------------------
 
@@ -43,10 +39,14 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contraseña`, `rol`) VALUES
-(1, 'joaquinln22', 'Grimpadora33', 'encargado'),
+(1, 'joaquinln22', '123', 'encargado'),
 (2, 'alex33', 'Alicates33', 'camarero'),
 (3, 'maria111', 'Martillo33', 'camarero'),
-(4, 'matias66', 'Destornillador33', 'camarero');
+(4, 'matias66', 'Destornillador33', 'camarero'),
+(5, 'desty69', 'Berengena33', 'camarero'),
+(6, 'MontyB', 'Teken33', 'camarero'),
+(7, 'TacoCBR', 'Burguer33', 'encargado'),
+(8, 'GalleGOL', 'Telepi', 'encargado');
 
 --
 -- Índices para tablas volcadas
@@ -66,7 +66,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
