@@ -1,46 +1,32 @@
 <?php
-// Iniciar la sesión
-session_start();
-
-// Incluir archivo de conexión
+// Establecer conexión
 include("conexion.php");
 
-// Verificar el método de solicitud
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recoger datos del formulario
-    $usuario = mysqli_real_escape_string($conn, $_POST['usuario']);
-    $contraseña = mysqli_real_escape_string($conn, $_POST['contraseña']);
+// Recogida de datos
+$user=$_POST['usuario'];
+$pwd=$_POST['contraseña'];
 
-    // Consulta SQL para validar usuario y contraseña
-    $consulta = "SELECT * FROM usuarios WHERE usuario='$usuario' AND contraseña='$contraseña'";
+//creamos la sentencia SQL
+$consulta="select * from usuarios where nombre_usuario='$user' and contraseña='$pwd'";
+$result = mysqli_query($conn ,$consulta);
+//Imprimos el error si se ha producido. mysql_error siempre va a mostrar el error de la última función mysql ejecutada
+echo mysqli_error($conn);
 
-    // Ejecutar la consulta
-    $result = mysqli_query($conn, $consulta);
+if($result && mysqli_num_rows($result)>0){	// Verificar si la consulta es correcta y hay resultados
+    $row = mysqli_fetch_assoc($result);		// Creamos un array con los resultados obtenidos de la consulta
 
-	if($result){
-		// Verificar si se encontró el usuario
-    	if (mysqli_num_rows($result) == 1) {
-        	$row = mysqli_fetch_assoc($result);
-
-        	// Asignar variables de sesión
-        	$_SESSION['usuario'] = $row['usuario'];
-        	$_SESSION['rol'] = $row['rol'];
-
-        	// Redireccionar según el rol del usuario
-        	if ($_SESSION['rol'] == 'camarero') {
-            	header("Location: opciones_camarero.html");
-        	} elseif ($_SESSION['rol'] == 'encargado') {
-       			header("Location: opciones_encargado.html");
-       		}
-        	exit();
-		}
-    } else {
-		echo "	<script>
-					alert('Usuario o contraseña incorrectos.');
-					window.location.href='inicio_sesion.php';
-				</script>";
-	}    
-}
+    // Redireccionar según el rol del usuario
+    if ($row['rol']=='camarero') {
+    	header("Location: opciones_camarero.php");
+	} elseif ($row['rol']=='encargado') {
+		header("Location: opciones_encargado.php");
+	}
+} else{
+	echo "	<script>
+				alert('Usuario o contraseña incorrectos.');
+				window.location.href= 'index.php';
+			</script>";
+}    
 
 // Cerrar la conexión
 mysqli_close($conn);

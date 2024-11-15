@@ -10,9 +10,8 @@
     <header>
         <h1>¿Qué quieres hacer?</h1>
     </header>
-    <body>
-        <p><a href="mesas.php" target="_parent">Mesas</a></p>
-        <p><a href="pedidos.php" target="_parent">Tomar pedido</a></p>
-    </body>
+    <p><a href="mesas.php" target="_parent">Mesas</a></p>
+    <p><a href="pedidos.php" target="_parent">Tomar pedido</a></p>
+    <p class="atras1"><a href="index.php" target="_parent">Volver atrás</a></p>
  </body>
  </html>

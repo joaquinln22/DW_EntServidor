@@ -43,10 +43,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contraseña`, `rol`) VALUES
-(1, 'joaquinln22', '$2y$10$tlMkPVwQm5tWhVoypsu98ueezxyTMSwuc6vKQdwgRK7Hj9.9ntLKK', 'encargado'),
-(2, 'alex33', '$2y$10$ZB3RHT87jW.oXQB6UXYCtO1YAq0M42Wzv.mJMWXe34n7aPA3v0CMO', 'camarero'),
-(3, 'maria111', '$2y$10$G605f0hMTd/f28kU7dSO3ONNSEav81QhFg4THFiq84UswU2eXo86C', 'camarero'),
-(4, 'matias66', '$2y$10$m2bateA6c8pUArxUkQU40uWvwWoW/gopVgt9VaIZuXmcoc4hY57nu', 'camarero');
+(1, 'joaquinln22', 'Grimpadora33', 'encargado'),
+(2, 'alex33', 'Alicates33', 'camarero'),
+(3, 'maria111', 'Martillo33', 'camarero'),
+(4, 'matias66', 'Destornillador33', 'camarero');
 
 --
 -- Índices para tablas volcadas
