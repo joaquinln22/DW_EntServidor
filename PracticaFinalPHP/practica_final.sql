@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2024 a las 12:37:56
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Tiempo de generación: 20-11-2024 a las 00:05:50
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,11 +46,21 @@ CREATE TABLE `historial_pedidos` (
 DROP TABLE IF EXISTS `mesas`;
 CREATE TABLE `mesas` (
   `id` int(11) NOT NULL,
-  `numero` int(11) NOT NULL,
-  `estado` enum('abierta','ocupada','pagada') NOT NULL,
+  `estado` enum('abierta','ocupada','pagada') COLLATE utf8_spanish_ci NOT NULL,
   `comensales` int(11) NOT NULL,
   `creacion_mesa` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `mesas`
+--
+
+INSERT INTO `mesas` (`id`, `estado`, `comensales`, `creacion_mesa`) VALUES
+(1, 'abierta', 0, '2024-11-19 21:15:42'),
+(2, 'abierta', 0, '2024-11-19 22:30:37'),
+(3, 'abierta', 0, '2024-11-19 21:18:58'),
+(4, 'abierta', 0, '2024-11-19 22:33:08'),
+(5, 'ocupada', 3, '2024-11-19 23:02:51');
 
 -- --------------------------------------------------------
 
@@ -63,7 +73,7 @@ CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL,
   `mesa_id` int(11) NOT NULL,
   `camarero_id` int(11) NOT NULL,
-  `estado` enum('pendiente','en_preparacion','servido') NOT NULL,
+  `estado` enum('pendiente','en_preparacion','servido') COLLATE utf8_spanish_ci NOT NULL,
   `creacion_pedido` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `enviado_a_cocina` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -77,11 +87,11 @@ CREATE TABLE `pedidos` (
 DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `categoria` varchar(50) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `categoria` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `precio` decimal(10,0) NOT NULL,
-  `zona_cocina` varchar(50) NOT NULL,
-  `disponible` enum('disponible','no disponible') NOT NULL
+  `zona_cocina` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `disponible` enum('disponible','no disponible') COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -96,8 +106,8 @@ CREATE TABLE `producto_pedido` (
   `pedido_id` int(11) NOT NULL,
   `producto_id` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `notas` varchar(200) NOT NULL,
-  `estado` enum('pendiente','en cocina','listo') NOT NULL,
+  `notas` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` enum('pendiente','en cocina','listo') COLLATE utf8_spanish_ci NOT NULL,
   `agregado_en` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -110,9 +120,9 @@ CREATE TABLE `producto_pedido` (
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombre_usuario` varchar(50) NOT NULL,
-  `contraseña` varchar(100) NOT NULL,
-  `rol` enum('camarero','encargado') NOT NULL,
+  `nombre_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `contraseña` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `rol` enum('camarero','encargado') COLLATE utf8_spanish_ci NOT NULL,
   `creacion_usuario` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -189,7 +199,7 @@ ALTER TABLE `historial_pedidos`
 -- AUTO_INCREMENT de la tabla `mesas`
 --
 ALTER TABLE `mesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`

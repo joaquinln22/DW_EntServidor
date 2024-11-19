@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<script src="../js/bootstrap.bundle.min.js"></script>
     <title>Inicio de sesión</title>
 </head>
 <body>
@@ -39,16 +40,14 @@
 		<td>
 		<select name="codigo">
 		
-		<?php
-		while($row = mysqli_fetch_array($result))
-			{
-				$cod=$row['codigo'];
-				echo "<option value=$cod>$cod</option>";		
-			}
-		?>
+			<?php
+			while($row = mysqli_fetch_array($result))
+				{
+					$cod=$row['codigo'];
+					echo "<option value=$cod>$cod</option>";		
+				}
+			?>
 		</select>
-		
-		
 		</td>
 	</tr>
 	<tr>
