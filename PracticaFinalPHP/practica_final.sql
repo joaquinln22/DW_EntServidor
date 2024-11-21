@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2024 a las 00:05:50
+-- Tiempo de generación: 21-11-2024 a las 18:33:55
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 7.4.19
 
@@ -60,7 +60,12 @@ INSERT INTO `mesas` (`id`, `estado`, `comensales`, `creacion_mesa`) VALUES
 (2, 'abierta', 0, '2024-11-19 22:30:37'),
 (3, 'abierta', 0, '2024-11-19 21:18:58'),
 (4, 'abierta', 0, '2024-11-19 22:33:08'),
-(5, 'ocupada', 3, '2024-11-19 23:02:51');
+(5, 'ocupada', 3, '2024-11-19 23:02:51'),
+(6, 'abierta', 0, '2024-11-20 18:37:01'),
+(7, 'abierta', 0, '2024-11-20 18:37:01'),
+(8, 'abierta', 0, '2024-11-20 18:37:38'),
+(9, 'abierta', 0, '2024-11-20 18:37:38'),
+(10, 'abierta', 0, '2024-11-20 18:37:38');
 
 -- --------------------------------------------------------
 
@@ -199,7 +204,7 @@ ALTER TABLE `historial_pedidos`
 -- AUTO_INCREMENT de la tabla `mesas`
 --
 ALTER TABLE `mesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
