@@ -157,18 +157,34 @@
                                         $color = 'purple';
                                     }
 
-                                    echo '
-                                    <div class="mesa-card">
-                                        <h2>Mesa ' . $numeroMesa . '</h2>
-                                        <form action="Camarero.php" method="POST">
-                                            <input type="hidden" name="mesa" value="' . $numeroMesa . '">
-                                            <button type="submit">
-                                                <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
-                                            </button>
-                                        </form>
-                                        <h4 style="color: ' . $color . ';">' . $condition . '</h4>
-                                    </div>
-                                    ';
+                                    if ($condition == 'abierta'){
+                                        echo '
+                                        <div class="mesa-card">
+                                            <h2>Mesa ' . $numeroMesa . '</h2> 
+                                            <form action="mesas.php" method="POST">
+                                                <input type="hidden" name="mesa" value="' . $numeroMesa . '">
+                                                <button type="submit">
+                                                    <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
+                                                </button>
+                                            </form>
+                                            <h4 style="color: ' . $color . ';">' . $condition . '</h4>
+                                        </div>
+                                        ';
+                                    }else{
+                                        echo '
+                                        <div class="mesa-card">
+                                            <h2>Mesa ' . $numeroMesa . '</h2> 
+                                            <form action="pedidos.php" method="POST">
+                                                <input type="hidden" name="mesa" value="' . $numeroMesa . '">
+                                                <button type="submit">
+                                                    <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
+                                                </button>
+                                            </form>
+                                            <h4 style="color: ' . $color . ';">' . $condition . '</h4>
+                                        </div>
+                                        ';  
+                                    }
+                                    
                                 }
 
                         echo '  </div>
