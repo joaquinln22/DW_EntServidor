@@ -28,32 +28,3 @@
     </form>
 </body>
 </html>
-
-<form action="formulario_modificacion.php" method="post" enctype="multipart/form-data">
-
-<table width="400" border="0">
-	<tr>
-		<td colspan="4"><h4 align="center"> <u>MODIFICACION DE PRODUCTOS </u></h4></td>
-	</tr>
-	<tr>
-		<td>Introduzca codigo</td>
-		<td>
-		<select name="codigo">
-		
-			<?php
-			while($row = mysqli_fetch_array($result))
-				{
-					$cod=$row['codigo'];
-					echo "<option value=$cod>$cod</option>";		
-				}
-			?>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td><input type="submit" name="button" value="Enviar"/></td>
-		<td><input type="reset" name="button2" value="Restablecer"/></td>
-	</tr>
-	</table>
-	</form>
-	<p><a href="menu.php"> Volver al menu</a></p>

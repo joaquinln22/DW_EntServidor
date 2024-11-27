@@ -161,9 +161,9 @@
                                         echo '
                                         <div class="mesa-card">
                                             <h2>Mesa ' . $numeroMesa . '</h2> 
-                                            <form action="mesas.php" method="POST">
+                                            <form action="consulta_pedido.php" method="POST">
                                                 <input type="hidden" name="mesa" value="' . $numeroMesa . '">
-                                                <button type="submit">
+                                                <button type="submit" href="pedidos.php">
                                                     <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
                                                 </button>
                                             </form>
