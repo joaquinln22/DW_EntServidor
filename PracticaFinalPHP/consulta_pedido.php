@@ -1,15 +1,11 @@
 <?php
 session_start(); // Iniciar la sesión
+include('Conexion.php'); // Conectar a la base de datos
 
-// Verificar que la solicitud sea POST y que el producto_id esté presente
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['producto_id'])) {
-    include('Conexion.php'); // Conectar a la base de datos
-
-    $producto_id = intval($_POST['producto_id']); // Sanitizar el ID recibido
-
-    // Consultar el producto seleccionado
-    $query = "SELECT * FROM productos WHERE id = $producto_id AND disponible = 'disponible'";
-    $result = mysqli_query($conn, $query);
+// Agregar pedido a la mesa
+$query = "INSERT INTO pedidos (mesa_id, camarero_id, estado)
+            VALUES ()";
+$result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $producto = mysqli_fetch_assoc($result);
@@ -49,8 +45,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['producto_id'])) {
         echo "Producto no válido o no disponible.";
     }
 
-    mysqli_close($conn); // Cerrar conexión
-} else {
-    echo "No se recibió un producto válido.";
-}
+mysqli_close($conn); // Cerrar conexión
 ?>
