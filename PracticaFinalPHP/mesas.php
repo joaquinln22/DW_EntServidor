@@ -136,6 +136,16 @@
                                             color: #8442f5;
                                         }
                                     </style>
+                                    <script>
+                                        function validarMesa(estado, idMesa) {
+                                            if (estado === "abierta") {
+                                                alert("Esta mesa aún no tiene comensales, por favor introdúzcalos.");
+                                            } else {
+                                                // Enviar formulario si el estado no es abierta
+                                                document.getElementById("form-mesa" + idMesa).submit();
+                                            }
+                                        }
+                                    </script>
                                 </head>
                                 <body>
 
@@ -157,39 +167,22 @@
                                         $color = 'purple';
                                     }
 
-                                    if ($condition == 'abierta'){
-                                        echo '
-                                        <div class="mesa-card">
-                                            <h2>Mesa ' . $numeroMesa . '</h2> 
-                                            <form action="consulta_pedido.php" method="POST">
-                                                <input type="hidden" name="mesa" value="' . $numeroMesa . '">
-                                                <button type="submit" href="pedidos.php">
-                                                    <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
-                                                </button>
-                                            </form>
-                                            <h4 style="color: ' . $color . ';">' . $condition . '</h4>
-                                        </div>
-                                        ';
-                                    }else{
-                                        echo '
-                                        <div class="mesa-card">
-                                            <h2>Mesa ' . $numeroMesa . '</h2> 
-                                            <form action="pedidos.php" method="POST">
-                                                <input type="hidden" name="mesa" value="' . $numeroMesa . '">
-                                                <button type="submit">
-                                                    <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
-                                                </button>
-                                            </form>
-                                            <h4 style="color: ' . $color . ';">' . $condition . '</h4>
-                                        </div>
-                                        ';  
-                                    }
-                                    
+                                    echo '
+                                    <div class="mesa-card">
+                                        <h2>Mesa ' . $numeroMesa . '</h2>
+                                        <form id="form-mesa' . $numeroMesa . '" action="pedir.php" method="POST">
+                                            <input type="hidden" name="mesa" value="' . $numeroMesa . '">
+                                            <button type="button" onclick="validarMesa(\'' . $condition . '\', ' . $numeroMesa . ')">
+                                                <img src="images/mesa.png" alt="Mesa ' . $numeroMesa . '">
+                                            </button>
+                                        </form>
+                                        <h4 style="color: ' . $color . ';">' . $condition . '</h4>
+                                    </div>';        
                                 }
 
                         echo '  </div>
                                 <div class="volver">
-                                    <p><a href="opciones_camarero.php">Volver atrás</a></p>
+                                    <p><a href="index.php">Volver atrás</a></p>
                                 </div>
                                 </body>
                                 </html>';

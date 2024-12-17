@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
         // Redireccionar según el rol
         if ($row['rol'] == 'camarero') {
-            header("Location: opciones_camarero.php");
+            header("Location: mesas.php");
         } elseif ($row['rol'] == 'encargado') {
             header("Location: opciones_encargado.php");
         }else{
