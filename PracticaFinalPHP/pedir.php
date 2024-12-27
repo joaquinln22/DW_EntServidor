@@ -2,7 +2,11 @@
 include('conexion.php'); // Archivo de conexión a la base de datos
 session_start();
 
-$mesa_id = intval($_POST['mesa']); // ID de la mesa seleccionada
+$mesa_id = isset($_POST['mesa']) ? intval($_POST['mesa']) : (isset($_GET['mesa']) ? intval($_GET['mesa']) : 0); // ID de la mesa seleccionada
+
+if ($mesa_id <= 0) {
+    die("Error: ID de mesa no válido.");
+}
 
 // 1. Consulta para obtener los productos agrupados por categoría
 $query = "SELECT * FROM productos ORDER BY categoria ASC";
@@ -21,6 +25,16 @@ if (!$result) {
     <title>Pedido de Mesa <?php echo $mesa_id; ?></title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <style>
+        .boton1{
+            background-color: #8442f5;
+            border-color: transparent;
+        }
+        .boton1:hover{
+            background-color: #8442f5;
+            border-color: transparent;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -98,6 +112,11 @@ if (!$result) {
                     $subtotal = $row['cantidad'] * $row['precio'];
                     $total += $subtotal;
                     echo '<li class="list-group-item d-flex justify-content-between">
+                            <form action="quitar_producto.php" method="POST" class="ms-3">
+                                <input type="hidden" name="producto_pedido_id" value="' . $row['id'] . '">
+                                <input type="hidden" name="mesa_id" value="' . $mesa_id . '">
+                                <button type="submit" class="btn btn-sm btn-danger">Quitar</button>
+                            </form>
                             <span>' . $row['nombre'] . ' x' . $row['cantidad'] . '</span>
                             <span>€' . number_format($subtotal, 2) . '</span>
                         </li>';
@@ -112,7 +131,7 @@ if (!$result) {
             <form action="mandar_a_cocina.php" method="POST" class="mt-3">
                 <input type="hidden" name="mesa_id" value="<?php echo $mesa_id; ?>">
                 <input type="hidden" name="total" value="<?php echo $total ?? 0; ?>">
-                <button type="submit" class="btn btn-danger w-100">Mandar a Cocina</button>
+                <button type="submit" class="boton1 btn btn-success w-100">Mandar a Cocina</button>
             </form>
         </div>
     </div>
