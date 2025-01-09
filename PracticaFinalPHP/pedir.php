@@ -1,6 +1,9 @@
 <?php
 include('conexion.php'); // Archivo de conexión a la base de datos
-session_start();
+include("seguridad_camarero.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $mesa_id = isset($_POST['mesa']) ? intval($_POST['mesa']) : (isset($_GET['mesa']) ? intval($_GET['mesa']) : 0); // ID de la mesa seleccionada
 
@@ -39,6 +42,9 @@ if (!$result) {
 <body>
 <div class="container-fluid">
     <div class="row">
+        <div class="text-center" >
+            <p><a style="color: #8442f5; text-decoration: none" href="mesas.php">Volver atrás</a></p>
+        </div>
         <!-- Columna Izquierda: Menú de Productos -->
         <div class="col-md-6">
             <h2 class="text-center">Menú</h2>
@@ -60,7 +66,7 @@ if (!$result) {
                                 <h5 class="card-title">' . $row['nombre'] . '</h5>
                                 <p class="card-text">' . $row['descripcion'] . '</p>
                                 <p class="card-text"><small class="text-muted">Precio: €' . $row['precio'] . ' | Stock: ' . $row['stock'] . '</small></p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal' . $row['id'] . '">Añadir</button>
+                                <button class="boton1 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal' . $row['id'] . '">Añadir</button>
                             </div>
                         </div>
                     </div>
@@ -84,7 +90,7 @@ if (!$result) {
                                     <textarea name="notas" class="form-control"></textarea>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Agregar</button>
+                                    <button type="submit" class="boton1 btn btn-success">Agregar</button>
                                 </div>
                             </form>
                         </div>
@@ -112,7 +118,7 @@ if (!$result) {
                     $subtotal = $row['cantidad'] * $row['precio'];
                     $total += $subtotal;
                     echo '<li class="list-group-item d-flex justify-content-between">
-                            <form action="quitar_producto.php" method="POST" class="ms-3">
+                            <form action="quitar_producto.php" method="POST" class="mb-0">
                                 <input type="hidden" name="producto_pedido_id" value="' . $row['id'] . '">
                                 <input type="hidden" name="mesa_id" value="' . $mesa_id . '">
                                 <button type="submit" class="btn btn-sm btn-danger">Quitar</button>
@@ -126,13 +132,48 @@ if (!$result) {
                 echo "<p>No hay productos pendientes.</p>";
             }
             ?>
-
+            <div class="mt-3">
+                <span class="fs-5 fw-bold">Total: €<?php echo number_format($total ?? 0, 2); ?></span>
+            </div>
             <!-- Botón para Mandar a Cocina -->
             <form action="mandar_a_cocina.php" method="POST" class="mt-3">
                 <input type="hidden" name="mesa_id" value="<?php echo $mesa_id; ?>">
                 <input type="hidden" name="total" value="<?php echo $total ?? 0; ?>">
                 <button type="submit" class="boton1 btn btn-success w-100">Mandar a Cocina</button>
             </form>
+
+            <!-- Listado de pedidos asociados a la mesa -->
+            <div class="mt-5">
+                <h4>Pedidos pendientes de pago</h4>
+                <?php
+                $queryPedidosMesa = "SELECT id, total, estado, creacion_pedido 
+                                    FROM pedidos 
+                                    WHERE mesa_id = $mesa_id AND estado!='pagado'
+                                    ORDER BY creacion_pedido DESC";
+                $resultPedidosMesa = mysqli_query($conn, $queryPedidosMesa);
+
+                if ($resultPedidosMesa && mysqli_num_rows($resultPedidosMesa) > 0) {
+                    echo '<ul class="list-group">';
+                    while ($pedido = mysqli_fetch_assoc($resultPedidosMesa)) {
+                        echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Pedido ID:</strong> ' . $pedido['id'] . '<br>
+                                    <strong>Total:</strong> €' . number_format($pedido['total'], 2) . '<br>
+                                    <strong>Estado:</strong> ' . ucfirst($pedido['estado']) . '<br>
+                                    <strong>Fecha:</strong> ' . $pedido['creacion_pedido'] . '
+                                </div>
+                            </li>';
+                    }
+                    echo '</ul>';
+                    echo '<form action="pagar_pedido.php" method="POST" class="mt-4">
+                            <input type="hidden" name="mesa_id" value="' . $mesa_id . '">
+                            <button type="submit" class="btn btn-lg btn-success w-100">Pagar Todos</button>
+                        </form>';
+                } else {
+                    echo "<p>No hay pedidos registrados para esta mesa.</p>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>

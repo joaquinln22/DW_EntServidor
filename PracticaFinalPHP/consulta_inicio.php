@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        // Guardar el id del camarero en la sesión
+        // Guardar la información relevante de la sesión
         $_SESSION['usuario_id'] = $row['id'];
         $_SESSION['usuario_rol'] = $row['rol'];
 

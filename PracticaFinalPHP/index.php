@@ -10,24 +10,17 @@
         .caja{
             width: 450px;
         }
-
+        .boton1{
+            background-color: #8442f5;
+            border-color: transparent;
+        }
+        .boton1:hover{
+            background-color: #8442f5;
+            border-color: transparent;
+        }
     </style>
 </head>
 <body>
-    <?php
-        //Estableciendo la conexión
-        include ("conexion.php");
-
-        //creamos la sentencia SQL
-        $consulta="select * from usuarios";
-        $result = mysqli_query($conn ,$consulta);
-        //Imprimos el error si se ha producido. mysql_error siempre va a mostrar el error de la última función mysql ejecutada
-        echo mysqli_error($conn);
-
-        //Imprimos el error si se ha producido. mysql_error siempre va a mostrar el error de la última función mysql ejecutada
-        echo mysqli_error($conn);
-
-    ?>
     <div class="container">
         <div class="row justify-content-center">
             <div class="caja col-auto">

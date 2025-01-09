@@ -1,3 +1,13 @@
+<?php
+include('conexion.php'); // Archivo de conexión a la base de datos
+include("seguridad_camarero.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$camarero_id = intval($_SESSION['usuario_id']); // ID del camarero que ha iniciado sesión
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script src="../js/bootstrap.bundle.min.js"></script>
-    <title></title>
+    <title>Camarero <?php echo $camarero_id; ?></title>
     <style>
         .caja{
             width: 450px;
