@@ -4,17 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::middleware('auth')->group(function (){
     // index,mostramos listado
     Route::get('products', function () {
@@ -28,12 +17,11 @@ Route::middleware('auth')->group(function (){
         return view('products.create');
     })->name('products.create'); //le damos mismo  nombre para no liar
 
-
     //Para guiardar datos, insertar en bdd, nos llevara al modelo Product
     Route::post('products', function ( Request $request) { //usamos libreria request para recibir los valores de input
         $newProduct = new Product;
         $newProduct -> description =$request->input('description');
-        $newProduct->price = $request->input('price');
+        $newProduct->  price = $request->input('price');
         $newProduct->save();
         return redirect()->route('products.index')->with('info', 'Producto insertado correctamente');
     })->name('products.store'); 
@@ -42,7 +30,7 @@ Route::middleware('auth')->group(function (){
     Route::delete('products/{id}',function($id){
         $product=Product::findOrFail($id);
         $product->delete();
-        return redirect()->route('products.index')->with('danger', 'Producto Eliminado');;
+        return redirect()->route('products.index')->with('info', 'Producto eliminado exitosamente');;
     })->name('products.destroy');
 
     // para modificar
@@ -51,13 +39,13 @@ Route::middleware('auth')->group(function (){
         return view('products.edit', compact('product'));
     })->name('products.edit');
 
-    Route::put('products/{id}', function($id){
-        return $id;
+    Route::put('products/{id}', function(Request $request, $id){
+        $product= Product::findOrFail($id);
+        $product->description=$request->input('description');
+        $product->price=$request->input('price');
+        $product->save();
+        return redirect()->route('products.index')->with('info', 'Producto modificado correctamente');
     })->name('products.update');
 });
 
-
-
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

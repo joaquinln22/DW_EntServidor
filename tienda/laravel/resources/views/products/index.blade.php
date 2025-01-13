@@ -1,3 +1,11 @@
+@extends('layout.main')
+@section('contenido')
+    <div class="container"><br>
+        <div class="row">
+
+        </div>
+    </div>
+@endsection
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +51,7 @@
                                         {{$producto->description}}
                                     </td>
                                     <td>
-                                        {{$producto->price}}
+                                        {{$producto->price}} {{"€"}}
                                     </td>
                                     <td>
                                         <a href="{{route('products.edit', $producto->id)}}" class="btn btn-warning btn-sm">Editar</a>
@@ -63,6 +71,3 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
