@@ -37,13 +37,23 @@ if (!$result) {
             background-color: #8442f5;
             border-color: transparent;
         }
+        .volver a {
+            text-decoration: none;
+            color: red;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .volver a:hover {
+            color: #8442f5;
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="text-center" >
-            <p><a style="color: #8442f5; text-decoration: none" href="mesas.php">Volver atrás</a></p>
+            <p class="volver"><a href="mesas.php">Volver atrás</a></p>
         </div>
         <!-- Columna Izquierda: Menú de Productos -->
         <div class="col-md-6">
