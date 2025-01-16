@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <title>Modificación de usuarios</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -58,15 +59,15 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="row text-center mb-2" style="color: #0078d7">
                     <h1>Modificación de usuarios</h1>
                 </div>
-                <form action="consulta_modificacion.php" method="post" name="registro_usuarios">
+                <form action="consulta_modificacion.php" method="post" name="modificacion_usuarios">
                     <div class="row">
-                        <span>Usuario a modificar: <input type="text" name="usuario" size="20" required></span>
+                        <span>Usuario a modificar: <input type="text" name="usuario_modificar" size="20" required></span>
                     </div> 
                     <div class="row mt-2">
                         <span><b>Parámetros a modificar:</b></span>
                     </div>
                     <div class="row mt-2">
-                        <span>Usuario: <input type="text" name="nombre" size="20"></span>
+                        <span>Usuario: <input type="text" name="usuario" size="20"></span>
                     </div>
                     <div class="row mt-2">
                         <span>Contraseña: <input type="password" name="contraseña" size="20"></span>
@@ -95,7 +96,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </span>
                     </div>
                     <div class="row col-auto mt-2">
-                        <input class="btn btn-success" type="submit" value="Modificar Usuario">
+                        <input class="btn btn-success" type="submit" value="Modificar usuario">
                     </div>
                     <div class="row text-center mt-2">
                         <p class="volver"><a href="admin_usuarios.php" target="_parent">Volver atrás</a></p>

@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script src="../js/bootstrap.bundle.min.js"></script>
     <title>Administración de usuarios</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;

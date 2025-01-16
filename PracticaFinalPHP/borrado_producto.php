@@ -11,7 +11,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <title>Eliminación de usuarios</title>
+    <title>Eliminación de productos</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -52,9 +53,9 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="row justify-content-center">
             <div class="caja col-auto">
                 <div class="row text-center mb-2" style="color: #0078d7">
-                    <h1>Eliminación de productos del menú</h1>
+                    <h1>Eliminación de productos</h1>
                 </div>
-                <form action="consulta_borrado_productos.php" method="post" name="eliminacion_usuarios">
+                <form action="consulta_borrado_producto.php" method="post" name="borrado_producto">
                     <div class="row">
                         <span>Producto a eliminar: <input type="text" name="nombre" size="20" required></span>
                     </div>

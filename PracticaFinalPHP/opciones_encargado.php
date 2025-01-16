@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <title>Opciones Encargado</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -55,6 +56,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 </header>
                 <p><a href="admin_usuarios.php" target="_parent">Administración de usuarios</a></p>
                 <p><a href="gestion_productos.php" target="_parent">Gestión de productos</a></p>
+                <p><a href="historial_pedidos.php" target="_parent">Historial de pedidos</a></p>
+                <p><a href="generar_informe.php" target="_parent">Generar informe de rendimiento</a></p>
                 <p class="volver"><a href="index.php" target="_parent">Volver atrás</a></p>
             </div>
         </div>

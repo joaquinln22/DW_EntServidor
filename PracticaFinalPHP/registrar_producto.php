@@ -11,7 +11,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <title>Modificación de usuarios</title>
+    <title>Agregar productos</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -58,12 +59,12 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="row text-center mb-2" style="color: #0078d7">
                     <h1>Agregar productos al menú</h1>
                 </div>
-                <form action="consulta_agregar_productos.php" method="post" name="registro_usuarios">
+                <form action="consulta_registrar_producto.php" method="post" name="agregar_productos">
                     <div class="row mt-2">
                         <span>Nombre: <input type="text" name="nombre" size="20"></span>
                     </div>
                     <div class="row mt-2">
-                        <span>Descripción: <input type="password" name="descripcion" size="20"></span>
+                        <span>Descripción: <input type="text" name="descripcion" size="20"></span>
                     </div>
                     <div class="row mt-2">
                         <span>Stock: <input type="number" name="stock" size="20" required></span>
@@ -85,7 +86,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </span>
                     </div>
                     <div class="row col-auto mt-2">
-                        <input class="btn btn-success" type="submit" value="Modificar Usuario">
+                        <input class="btn btn-success" type="submit" value="Agregar producto">
                     </div>
                     <div class="row text-center mt-2">
                         <p class="volver"><a href="gestion_productos.php" target="_parent">Volver atrás</a></p>

@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <title>Registro de usuarios</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
 
         .caja {
@@ -90,7 +91,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </span>
                     </div>
                     <div class="row col-auto mt-2">
-                        <input class="btn btn-success" type="submit" value="Registrar Usuario">
+                        <input class="btn btn-success" type="submit" value="Registrar usuario">
                     </div>
                     <div class="row text-center mt-2">
                         <p class="volver"><a href="admin_usuarios.php" target="_parent">Volver atrás</a></p>

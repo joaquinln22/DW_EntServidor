@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <title>Eliminación de usuarios</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -59,7 +60,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <span>Usuario a eliminar: <input type="text" name="usuario" size="20" required></span>
                     </div>
                     <div class="row col-auto mt-2">
-                        <input class="btn btn-danger" type="submit" value="Eliminar Usuario">
+                        <input class="btn btn-danger" type="submit" value="Eliminar usuario">
                     </div>
                     <div class="row text-center mt-2">
                         <p class="volver"><a href="admin_usuarios.php" target="_parent">Volver atrás</a></p>

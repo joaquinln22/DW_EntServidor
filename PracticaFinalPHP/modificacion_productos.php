@@ -11,7 +11,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <title>Modificación de usuarios</title>
+    <title>Modificación de productos</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -60,7 +61,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
                 <form action="consulta_modificacion_productos.php" method="post" name="registro_usuarios">
                     <div class="row">
-                        <span>Producto a modificar: <input type="text" name="usuario" size="20" required></span>
+                        <span>Producto a modificar: <input type="text" name="producto" size="20" required></span>
                     </div> 
                     <div class="row mt-2">
                         <span><b>Parámetros a modificar:</b></span>
@@ -69,7 +70,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <span>Nombre: <input type="text" name="nombre" size="20"></span>
                     </div>
                     <div class="row mt-2">
-                        <span>Descripción: <input type="password" name="contraseña" size="20"></span>
+                        <span>Descripción: <input type="text" name="descripcion" size="20"></span>
                     </div>
                     <div class="row mt-2">
                         <span>Precio: <input type="number" name="precio" size="20" required></span>
@@ -80,15 +81,15 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="row mt-2">
                         <span class="categoria">Categoría: 
                             <select name="categoria" id="categoria">
-                                <option value="entrantes">Entrantes</option>
-                                <option value="principales">Principales</option>
-                                <option value="postres">Postres</option>
-                                <option value="bebidas">Bebidas</option>
+                                <option value="Entrantes">Entrantes</option>
+                                <option value="Principales">Principales</option>
+                                <option value="Postres">Postres</option>
+                                <option value="Bebidas">Bebidas</option>
                             </select>
                         </span>
                     </div>
                     <div class="row col-auto mt-2">
-                        <input class="btn btn-success" type="submit" value="Modificar Usuario">
+                        <input class="btn btn-success" type="submit" value="Modificar producto">
                     </div>
                     <div class="row text-center mt-2">
                         <p class="volver"><a href="gestion_productos.php" target="_parent">Volver atrás</a></p>

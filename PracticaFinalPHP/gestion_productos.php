@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script src="../js/bootstrap.bundle.min.js"></script>
     <title>Gestión de productos</title>
+    <link rel="icon" href="./images/burguer.png" type="image/png">
     <style>
         .caja {
             background-color: #e0e0e0;
@@ -54,8 +55,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     <h1 style="color: #0078d7">¿Qué quieres hacer?</h1>
                 </header>
                 <p><a href="modificacion_productos.php" target="_parent">Modificación de productos</a></p>
-                <p><a href="agregar_productos.php" target="_parent">Agregar productos al menú</a></p>
-                <p><a href="borrado_productos.php" target="_parent">Eliminación de productos</a></p>
+                <p><a href="registrar_producto.php" target="_parent">Agregar productos al menú</a></p>
+                <p><a href="borrado_producto.php" target="_parent">Eliminación de productos</a></p>
                 <p><a href="actualizar_stock.php" target="_parent">Actualizar stock</a></p>
                 <p class="volver"><a href="opciones_encargado.php" target="_parent">Volver atrás</a></p>
             </div>
