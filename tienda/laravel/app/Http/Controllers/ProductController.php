@@ -26,8 +26,22 @@ class ProductController extends Controller
 
     public function destroy($id){
         $product=Product::findOrFail($id);
+
+        $text = "<b>Se ha eliminado el siguiente producto:</b>:\n"
+        . "<b>Id: </b>\n"
+        . "$product->id\n"
+        . "<b>Descripción: </b>\n"
+        . "$product->description\n"
+        . "<b>Precio</b>\n"
+        . "$product->price" . "€";
+        
+        \Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_CHANNEL_ID', 'Variable no configurada'),
+            'parse_mode' => 'HTML',
+            'text' => $text
+        ]);
         $product->delete();
-        return redirect()->route('products.index')->with('info', 'Producto eliminado exitosamente');;
+        return redirect()->route('products.index')->with('info', 'Producto eliminado exitosamente');
     }
 
     public function edit($id){
