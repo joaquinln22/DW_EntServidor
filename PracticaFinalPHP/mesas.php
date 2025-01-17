@@ -16,6 +16,7 @@ $camarero_id = intval($_SESSION['usuario_id']); // ID del camarero que ha inicia
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script src="../js/bootstrap.bundle.min.js"></script>
     <title>Camarero <?php echo $camarero_id; ?></title>
+    <link rel="icon" href="images/burguer.png" type="image/png">
     <style>
         .caja{
             width: 450px;

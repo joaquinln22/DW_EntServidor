@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2025 a las 18:47:17
+-- Tiempo de generación: 17-01-2025 a las 12:54:32
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 7.4.19
 
@@ -43,8 +43,8 @@ CREATE TABLE `mesas` (
 
 INSERT INTO `mesas` (`id`, `estado`, `comensales`, `creacion_mesa`) VALUES
 (1, 'pagada', 6, '2025-01-16 17:45:42'),
-(2, 'ocupada', 5, '2024-11-26 09:08:31'),
-(3, 'pagada', 3, '2025-01-14 22:21:28'),
+(2, 'pagada', 5, '2025-01-17 08:49:33'),
+(3, 'pagada', 2, '2025-01-17 11:25:45'),
 (4, 'abierta', 0, '2024-11-19 22:33:08'),
 (5, 'ocupada', 3, '2024-11-19 23:02:51'),
 (6, 'abierta', 0, '2024-11-20 18:37:01'),
@@ -85,7 +85,14 @@ INSERT INTO `pedidos` (`id`, `mesa_id`, `camarero_id`, `total`, `estado`, `creac
 (49, 3, 2, '31.75', 'pagado', '2025-01-09 20:32:19'),
 (50, 3, 2, '6.50', 'pagado', '2025-01-09 21:16:16'),
 (51, 3, 2, '30.50', 'pagado', '2025-01-14 22:21:28'),
-(52, 1, 2, '26.75', 'pagado', '2025-01-16 17:45:42');
+(52, 1, 2, '26.75', 'pagado', '2025-01-16 17:45:42'),
+(55, 1, 2, '33.00', 'pagado', '2025-01-17 08:41:41'),
+(56, 1, 2, '1.50', 'pagado', '2025-01-17 08:41:41'),
+(57, 1, 2, '1.50', 'pagado', '2025-01-17 08:41:41'),
+(58, 2, 2, '4.50', 'pagado', '2025-01-17 08:49:33'),
+(59, 2, 2, '1.50', 'pagado', '2025-01-17 08:49:33'),
+(60, 2, 2, '1.50', 'pagado', '2025-01-17 08:49:33'),
+(61, 3, 2, '28.50', 'pagado', '2025-01-17 11:25:45');
 
 -- --------------------------------------------------------
 
@@ -109,8 +116,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `imagen`, `nombre`, `categoria`, `precio`, `descripcion`, `stock`) VALUES
-(1, 'images/tequeños.png', 'Tequeños', 'Entrantes', 3, 'Palitos de queso recubiertos con masa de hojaldre. (6 uds)', 79),
-(2, 'images/burguer.png', 'McGlouber', 'Principales', 12, 'Doble carne de ternera con extra de salsa blanca secreta, tomate, lechuga y cheddar.', 30),
+(1, 'images/tequeños.png', 'Tequeños', 'Entrantes', 3, 'Palitos de queso recubiertos con masa de hojaldre. (6 uds)', 74),
+(2, 'images/burguer.png', 'McGlouber', 'Principales', 12, 'Doble carne de ternera con extra de salsa blanca secreta, tomate, lechuga y cheddar.', 26),
 (3, 'images/burguer.png', 'Black Mamba', 'Principales', 13, 'Una carne de 200gr., queso curado y extra de salsa secreta Desty.', 20),
 (4, 'images/burguer.png', 'López burguer', 'Principales', 12.5, 'burguer clásica elaborada con ingredientes 100% autóctonos de las tierras de Calasparra.', 25),
 (6, 'images/burguer.png', 'Taco\'s burguer', 'Principales', 12.5, 'Fusión de culturas en una hamburguesa con ingredientes propios del Steven con el añadido de una salsa especial de origen ecuatoriano.', 20),
@@ -121,8 +128,8 @@ INSERT INTO `productos` (`id`, `imagen`, `nombre`, `categoria`, `precio`, `descr
 (11, 'images/burguer.png', 'La cuchi cuchi', 'Principales', 18.25, 'Una burguer obesa, triple smash de borrico murciano y mayonesa de pies a cabeza.', 7),
 (12, 'images/burguer.png', 'La morcillona', 'Principales', 19.5, 'Una burger que te hace entrar en modo gorrino, hecha de múltiples carnes y grasa compactada con las manos de nuestra cocinera más veterana. Con una morcilla de burgos como acompañamiento.', 30),
 (13, 'images/tarta_queso.png', 'Tarta de queso', 'Postres', 5, 'Porción de tarta de queso con mermelada de arándanos.', 28),
-(16, 'images/patatas.png', 'Patatas fritas', 'Entrantes', 1.5, 'Ración de patatas extra crujientes al punto de sal.', 90),
-(18, 'images/soda.png', 'Refresco', 'Bebidas', 1.5, 'Refresco a elegir entre la variedad disponible en nuestro surtidor, coca-cola (zero y zero-zero, también), seven-up, fanta de naranja y limón, nestea.', 497);
+(16, 'images/patatas.png', 'Patatas fritas', 'Entrantes', 1.5, 'Ración de patatas extra crujientes al punto de sal.', 85),
+(18, 'images/soda.png', 'Refresco', 'Bebidas', 1.5, 'Refresco a elegir entre la variedad disponible en nuestro surtidor, coca-cola (zero y zero-zero, también), seven-up, fanta de naranja y limón, nestea.', 494);
 
 -- --------------------------------------------------------
 
@@ -213,7 +220,20 @@ INSERT INTO `producto_pedido` (`id`, `pedido_id`, `producto_id`, `mesa_id`, `can
 (99, 52, 16, 1, 1, 'con mayonesa', 'en cocina', '2025-01-16 17:45:14'),
 (100, 52, 7, 1, 1, 'al punto', 'en cocina', '2025-01-16 17:45:14'),
 (101, 52, 13, 1, 1, '', 'en cocina', '2025-01-16 17:45:14'),
-(102, 52, 18, 1, 1, 'coca-cola', 'en cocina', '2025-01-16 17:45:14');
+(102, 52, 18, 1, 1, 'coca-cola', 'en cocina', '2025-01-16 17:45:14'),
+(103, 55, 1, 1, 2, '', 'en cocina', '2025-01-17 08:33:11'),
+(104, 55, 2, 1, 2, '', 'en cocina', '2025-01-17 08:33:11'),
+(105, 55, 18, 1, 2, '', 'en cocina', '2025-01-17 08:33:11'),
+(106, 56, 16, 1, 1, '', 'en cocina', '2025-01-17 08:37:27'),
+(107, 57, 16, 1, 1, '', 'en cocina', '2025-01-17 08:40:38'),
+(108, 58, 1, 2, 1, '', 'en cocina', '2025-01-17 08:47:29'),
+(109, 58, 16, 2, 1, '', 'en cocina', '2025-01-17 08:47:29'),
+(110, 59, 16, 2, 1, '', 'en cocina', '2025-01-17 08:48:25'),
+(111, 60, 16, 2, 1, '', 'en cocina', '2025-01-17 08:49:11'),
+(112, 0, 1, 2, 1, '', 'pendiente', '2025-01-17 09:12:13'),
+(114, 61, 2, 3, 2, 'con ketchup', 'en cocina', '2025-01-17 11:24:47'),
+(116, 61, 1, 3, 1, '', 'en cocina', '2025-01-17 11:24:47'),
+(117, 61, 18, 3, 1, 'coca cola', 'en cocina', '2025-01-17 11:24:47');
 
 -- --------------------------------------------------------
 
@@ -303,7 +323,7 @@ ALTER TABLE `mesas`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -315,7 +335,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `producto_pedido`
 --
 ALTER TABLE `producto_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

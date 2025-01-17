@@ -49,7 +49,7 @@ if (isset($_POST['producto_id'], $_POST['mesa_id'], $_POST['cantidad'])) {
                     mysqli_rollback($conn);
                     echo '<script>
                             alert("Error al actualizar el stock: ' . mysqli_error($conn) . '");
-                            window.location.href = "pedir.php";
+                            window.location.href = "pedir.php?mesa=' . $mesa_id . '";
                           </script>';
                 }
             } else {
@@ -57,7 +57,7 @@ if (isset($_POST['producto_id'], $_POST['mesa_id'], $_POST['cantidad'])) {
                 mysqli_rollback($conn);
                 echo '<script>
                         alert("Error al agregar el producto: ' . mysqli_error($conn) . '");
-                        window.location.href = "pedir.php";
+                        window.location.href = "pedir.php?mesa=' . $mesa_id . '";
                       </script>';
             }
         } catch (Exception $e) {
@@ -65,19 +65,19 @@ if (isset($_POST['producto_id'], $_POST['mesa_id'], $_POST['cantidad'])) {
             mysqli_rollback($conn);
             echo '<script>
                     alert("Error inesperado: ' . $e->getMessage() . '");
-                    window.location.href = "pedir.php";
+                    window.location.href = "pedir.php?mesa=' . $mesa_id . '";
                   </script>';
         }
     } else {
         echo '<script>
                 alert("La cantidad debe ser mayor a 0.");
-                window.location.href = "pedir.php";
+                window.location.href = "pedir.php?mesa=' . $mesa_id . '";
               </script>';
     }
 } else {
     echo '<script>
             alert("Error: Datos incompletos.");
-            window.location.href = "pedir.php";
+            window.location.href = "pedir.php?mesa=' . $mesa_id . '";
           </script>';
 }
 

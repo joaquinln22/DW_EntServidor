@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script src="../js/bootstrap.bundle.min.js"></script>
     <title>Inicio de sesión</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="icon" href="images/burguer.png" type="image/png">
     <style>
         .caja{
             width: 500px;

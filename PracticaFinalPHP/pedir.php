@@ -26,6 +26,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedido de Mesa <?php echo $mesa_id; ?></title>
+    <link rel="icon" href="images/burguer.png" type="image/png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <style>

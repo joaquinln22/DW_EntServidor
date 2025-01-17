@@ -1,3 +1,10 @@
+<?php
+include('conexion.php'); // Archivo de conexión a la base de datos
+include("seguridad_encargado.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +43,6 @@
             <h1>Informe de rendimiento diario</h1>
 
             <?php
-            // Conexión a la base de datos
-            include("./conexion.php");
-
             // Consulta para obtener los datos requeridos
             $consulta = "
                 SELECT 

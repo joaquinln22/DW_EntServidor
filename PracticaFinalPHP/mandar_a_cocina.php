@@ -18,65 +18,72 @@ $camarero_id = intval($_SESSION['usuario_id']); // ID del camarero que inició s
 // Inicia una transacción para garantizar la consistencia
 mysqli_begin_transaction($conn);
 
-try {
-    // Inserta el pedido en la tabla pedidos
-    $insertQuery = "INSERT INTO pedidos (mesa_id, camarero_id, total, estado)
-                    VALUES ($mesa_id, $camarero_id, $total, 'pendiente')";
-    if (!mysqli_query($conn, $insertQuery)) {
-        throw new Exception("Error en insertQuery: " . mysqli_error($conn));
-    }
-
-    // Obtén el ID del pedido recién insertado
-    $pedido_id = mysqli_insert_id($conn);
-
-    // Consulta para obtener la hora de creación del pedido
-    $queryCreacion = "SELECT creacion_pedido FROM pedidos WHERE id = $pedido_id";
-    $resultCreacion = mysqli_query($conn, $queryCreacion);
-    if (!$resultCreacion || mysqli_num_rows($resultCreacion) === 0) {
-        throw new Exception("Error al obtener la hora de creación del pedido.");
-    }
-    $rowCreacion = mysqli_fetch_assoc($resultCreacion);
-    $creacion_pedido = $rowCreacion['creacion_pedido'];
-
-    // Actualiza los registros en producto_pedido con el ID del pedido y estado "en cocina"
-    $updatePedidoIdQuery = "UPDATE producto_pedido 
-                            SET pedido_id = $pedido_id, estado = 'en cocina' 
-                            WHERE mesa_id = $mesa_id AND estado = 'pendiente'";
-    if (!mysqli_query($conn, $updatePedidoIdQuery)) {
-        throw new Exception("Error en updatePedidoIdQuery: " . mysqli_error($conn));
-    }
-
-    // Consulta para obtener los productos del pedido
-    $queryProductos = "
-        SELECT pp.cantidad, pp.notas, pr.nombre AS producto, pr.precio, 
-               (pp.cantidad * pr.precio) AS subtotal
-        FROM producto_pedido pp
-        JOIN productos pr ON pp.producto_id = pr.id
-        WHERE pp.pedido_id = $pedido_id";
-    $resultProductos = mysqli_query($conn, $queryProductos);
-    if (!$resultProductos) {
-        throw new Exception("Error al obtener los productos: " . mysqli_error($conn));
-    }
-
-    // Confirma la transacción
-    mysqli_commit($conn);
-
+if ($total<=0){
     echo '<script>
-            alert("Pedido enviado a cocina correctamente.");
-            window.location.href = "mesas.php";
+            alert("Pedido vacío.");
+            window.location.href= "pedir.php?mesa=' . $mesa_id . '";
+        </script>';
+}else{
+    try {
+        // Inserta el pedido en la tabla pedidos
+        $insertQuery = "INSERT INTO pedidos (mesa_id, camarero_id, total, estado)
+                        VALUES ($mesa_id, $camarero_id, $total, 'pendiente')";
+        if (!mysqli_query($conn, $insertQuery)) {
+            throw new Exception("Error en insertQuery: " . mysqli_error($conn));
+        }
+
+        // Obtén el ID del pedido recién insertado
+        $pedido_id = mysqli_insert_id($conn);
+
+        // Consulta para obtener la hora de creación del pedido
+        $queryCreacion = "SELECT creacion_pedido FROM pedidos WHERE id = $pedido_id";
+        $resultCreacion = mysqli_query($conn, $queryCreacion);
+        if (!$resultCreacion || mysqli_num_rows($resultCreacion) === 0) {
+            throw new Exception("Error al obtener la hora de creación del pedido.");
+        }
+        $rowCreacion = mysqli_fetch_assoc($resultCreacion);
+        $creacion_pedido = $rowCreacion['creacion_pedido'];
+
+        // Actualiza los registros en producto_pedido con el ID del pedido y estado "en cocina"
+        $updatePedidoIdQuery = "UPDATE producto_pedido 
+                                SET pedido_id = $pedido_id, estado = 'en cocina' 
+                                WHERE mesa_id = $mesa_id AND estado = 'pendiente'";
+        if (!mysqli_query($conn, $updatePedidoIdQuery)) {
+            throw new Exception("Error en updatePedidoIdQuery: " . mysqli_error($conn));
+        }
+
+        // Consulta para obtener los productos del pedido
+        $queryProductos = "
+            SELECT pp.cantidad, pp.notas, pr.nombre AS producto, pr.precio, 
+                (pp.cantidad * pr.precio) AS subtotal
+            FROM producto_pedido pp
+            JOIN productos pr ON pp.producto_id = pr.id
+            WHERE pp.pedido_id = $pedido_id";
+        $resultProductos = mysqli_query($conn, $queryProductos);
+        if (!$resultProductos) {
+            throw new Exception("Error al obtener los productos: " . mysqli_error($conn));
+        }
+
+        // Confirma la transacción
+        mysqli_commit($conn);
+
+        echo '<script>
+                alert("Pedido enviado a cocina correctamente.");
+                window.location.href = "mesas.php";
+                </script>';
+    } catch (Exception $e) {
+        // Si algo falla, revierte la transacción
+        mysqli_rollback($conn);
+        echo '<script>
+                alert("Error al enviar el pedido: ' . addslashes($e->getMessage()) . '");
+                window.history.back();
             </script>';
-} catch (Exception $e) {
-    // Si algo falla, revierte la transacción
-    mysqli_rollback($conn);
-    echo '<script>
-            alert("Error al enviar el pedido: ' . addslashes($e->getMessage()) . '");
-            window.history.back();
-          </script>';
-}
+    }
 
-mysqli_close($conn);
+    mysqli_close($conn);
 
-require_once('../vendor/autoload.php');
+
+    require_once('../vendor/autoload.php');
 
     $mpdf= new \Mpdf\Mpdf([
 
@@ -116,5 +123,5 @@ require_once('../vendor/autoload.php');
         // Genera el PDF
         $mpdf->writeHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
         $mpdf->Output();
-
+}
 ?>
