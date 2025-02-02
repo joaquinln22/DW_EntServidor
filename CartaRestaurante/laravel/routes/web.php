@@ -3,12 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// Rutas públicas
 Route::get('/carta', function () {
     return '<h1>Vista de carta en construcción...</h1>';
 });
 
-
-
+// Rutas privadas
 Route::middleware('auth')->group(function () {
     Route::get('private', function () {
         return '<h1>Vista privada en construcción...</h1>';
