@@ -1,41 +1,59 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            { __('Carta del Restaurante') }
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante LTGÜ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Carta de productos</h1>
+        
+        <!-- Buscador -->
+        <form action="{{ route('carta') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <!-- Campo de búsqueda -->
+                <input type="text" name="search" class="form-control" placeholder="Buscar producto..." value="{{ request('search') }}">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @if (!isset($categorias) || $categorias->isEmpty())
-                        <p class="text-center text-danger">No hay categorías disponibles.</p>
-                    @endif
+                <!-- Botón desplegable para elegir el tipo de búsqueda -->
+                <select name="filter_type" class="form-select">
+                    <option value="nombre" {{ request('filter_type') == 'nombre' ? 'selected' : '' }}>Buscar por Nombre</option>
+                    <option value="Entrantes" {{ request('filter_type') == 'Entrantes' ? 'selected' : '' }}>Entrantes</option>
+                    <option value="Platos principales" {{ request('filter_type') == 'Platos principales' ? 'selected' : '' }}>Platos Principales</option>
+                    <option value="Bebidas" {{ request('filter_type') == 'Bebidas' ? 'selected' : '' }}>Bebidas</option>
+                    <option value="Postres" {{ request('filter_type') == 'Postres' ? 'selected' : '' }}>Postres</option>
+                </select>
 
-                    @foreach ($categorias as $categoria)
-                        <h2 class="mt-5 text-lg font-semibold">{ $categoria->nombre }</h2>
-
-                        @if(isset($categoria->productos) && $categoria->productos->isNotEmpty())
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                                @foreach ($categoria->productos as $producto)
-                                    <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg overflow-hidden">
-                                        <img src="{ $producto->imagen ? asset($producto->imagen) : asset('images/default.jpg') }" 
-                                             class="w-full h-48 object-cover" alt="{ $producto->nombre }">
-                                        <div class="p-4">
-                                            <h3 class="text-lg font-bold">{ $producto->nombre }</h3>
-                                            <p class="text-gray-600 dark:text-gray-300">{ $producto->descripcion }</p>
-                                            <p class="text-primary font-bold mt-2">{ number_format($producto->precio, 2) } €</p>
-                                        </div>
-                                    </div>
-                                @endforeach
+                <!-- Botón de búsqueda -->
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+        
+        <!-- Mostrar productos organizados por categoría -->
+        @foreach($categorias as $categoria)
+            <div class="mb-4">
+                <h2 class="bg-secondary text-white p-2">{{ $categoria->nombre }}</h2>
+                <div class="row">
+                    @foreach($categoria->productos as $producto)
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                @if($producto->imagen)
+                                    <img src="{{ asset('storage/' . $producto->imagen) }}" class="card-img-top" alt="{{ $producto->nombre }}">
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $producto->nombre }}</h5>
+                                    <p class="card-text">{{ $producto->descripcion }}</p>
+                                    <p class="fw-bold">Precio: €{{ number_format($producto->precio, 2) }}</p>
+                                </div>
                             </div>
-                        @else
-                            <p class="text-gray-500">No hay productos en esta categoría.</p>
-                        @endif
+                        </div>
                     @endforeach
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
-</x-app-layout>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

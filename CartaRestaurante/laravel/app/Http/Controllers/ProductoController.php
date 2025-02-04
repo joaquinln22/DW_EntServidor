@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Importar Auth
 
 class ProductoController extends Controller
 {
@@ -13,6 +14,35 @@ class ProductoController extends Controller
     {
         $productos = Producto::orderBy('created_at', 'desc')->get();
         return view('productos.index', compact('productos'));
+    }
+
+    public function indexPublico(Request $request)
+    {
+        if (Auth::check()) {
+            return redirect()->route('productos.index');
+        }
+
+        // Obtener todas las categorías con sus productos
+        $categorias = Categoria::with('productos')->get();
+
+        // Iniciar la consulta de productos
+        $query = Producto::query();
+
+        // Verificar el tipo de filtro seleccionado
+        $filterType = $request->input('filter_type');
+
+        if ($filterType == 'nombre' && $request->filled('search')) {
+            // Buscar por nombre del producto
+            $query->where('nombre', 'like', '%' . $request->search . '%');
+        } elseif (in_array($filterType, ['Entrantes', 'Platos principales', 'Bebidas', 'Postres'])) {
+            // Filtrar por categoría (basado en el nombre, no en el ID)
+            $query->where('categoria', $filterType);
+        }
+
+        // Obtener los productos filtrados
+        $productos = $query->get();
+
+        return view('carta', compact('productos', 'categorias'));
     }
 
     // Mostrar formulario para crear un nuevo producto
@@ -29,9 +59,9 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'categoria' => 'required|exists:categorias,nombre',
+            'categoria_id' => 'required|exists:categorias,id',
             'precio' => 'required|numeric|min:0',
-            'imagen' => 'nullable|url', // Validamos que sea una URL válida
+            'imagen' => 'nullable|url',
             'stock' => 'required|integer|min:0'
         ]);
 
@@ -55,7 +85,7 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'categoria' => 'required|exists:categorias,nombre',
+            'categoria_id' => 'required|exists:categorias,id',
             'precio' => 'required|numeric|min:0',
             'imagen' => 'nullable|url',
             'stock' => 'required|integer|min:0'

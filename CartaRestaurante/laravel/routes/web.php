@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\CartaController;
 use Illuminate\Support\Facades\Route;
 
 // RUTAS PÚBLICAS
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Route;
     return '<h1>Vista de carta en construcción...</h1>';
 });*/
 
-Route::get('/carta', [CartaController::class, 'index'])->name('carta.index');
+Route::get('/carta', [ProductoController::class, 'indexPublico'])->name('carta');
 
 // RUTAS PRIVADAS
 Route::middleware('auth')->group(function () {
