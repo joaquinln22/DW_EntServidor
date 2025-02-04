@@ -1,19 +1,25 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CartaController;
 use Illuminate\Support\Facades\Route;
 
-// Rutas públicas
-Route::get('/carta', function () {
-    return '<h1>Vista de carta en construcción...</h1>';
-});
+// RUTAS PÚBLICAS
 
-// Rutas privadas
+/*Route::get('/carta', function () {
+    return '<h1>Vista de carta en construcción...</h1>';
+});*/
+
+Route::get('/carta', [CartaController::class, 'index'])->name('carta.index');
+
+// RUTAS PRIVADAS
 Route::middleware('auth')->group(function () {
-    Route::get('private', function () {
+    /*Route::get('private', function () {
         return '<h1>Vista privada en construcción...</h1>';
-    });
-    Route::get('/dashboard', function () {
+    });*/
+    Route::get('/private', function () {
         return view('dashboard');
     })->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
