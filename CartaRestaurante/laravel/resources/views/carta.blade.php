@@ -9,20 +9,33 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Carta de productos</h1>
-        
+
+        <!-- Sección de Anuncios Activos -->
+        @if($anuncios->count() > 0)
+            <div class="alert alert-warning text-center">
+                <h4 class="mb-3">📢 Anuncios Activos</h4>
+                @foreach($anuncios as $anuncio)
+                    <div class="border p-2 mb-2">
+                        <h5 class="fw-bold">{{ $anuncio->titulo }}</h5>
+                        <p>{{ $anuncio->mensaje }}</p>
+                        <small class="text-muted">Válido hasta: {{ $anuncio->fecha_fin }}</small>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
         <!-- Buscador -->
-        <form action="{{ route('carta') }}" method="GET" class="mb-4">
+        <form id="searchForm" class="mb-4">
             <div class="input-group">
                 <!-- Campo de búsqueda -->
-                <input type="text" name="search" class="form-control" placeholder="Buscar producto..." value="{{ request('search') }}">
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar producto..." value="">
 
                 <!-- Botón desplegable para elegir el tipo de búsqueda -->
-                <select name="filter_type" class="form-select">
-                    <option value="nombre" {{ request('filter_type') == 'nombre' ? 'selected' : '' }}>Buscar por Nombre</option>
-                    <option value="Entrantes" {{ request('filter_type') == 'Entrantes' ? 'selected' : '' }}>Entrantes</option>
-                    <option value="Platos principales" {{ request('filter_type') == 'Platos principales' ? 'selected' : '' }}>Platos Principales</option>
-                    <option value="Bebidas" {{ request('filter_type') == 'Bebidas' ? 'selected' : '' }}>Bebidas</option>
-                    <option value="Postres" {{ request('filter_type') == 'Postres' ? 'selected' : '' }}>Postres</option>
+                <select id="filterType" class="form-select">
+                    <option value="nombre">Buscar por nombre</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ Str::slug($categoria->nombre) }}">{{ $categoria->nombre }}</option>
+                    @endforeach
                 </select>
 
                 <!-- Botón de búsqueda -->
@@ -33,11 +46,11 @@
         <!-- Mostrar productos organizados por categoría -->
         @foreach($categorias as $categoria)
             <div class="mb-4">
-                <h2 class="bg-secondary text-white p-2">{{ $categoria->nombre }}</h2>
+                <h2 id="{{ Str::slug($categoria->nombre) }}" class="bg-secondary text-white p-2">{{ $categoria->nombre }}</h2>
                 <div class="row">
                     @foreach($categoria->productos as $producto)
                         <div class="col-md-4 mb-3">
-                            <div class="card">
+                            <div class="card" id="{{ Str::slug($producto->nombre) }}">
                                 @if($producto->imagen)
                                     <img src="{{ asset('storage/' . $producto->imagen) }}" class="card-img-top" alt="{{ $producto->nombre }}">
                                 @endif
@@ -54,6 +67,41 @@
         @endforeach
     </div>
     
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita recargar la página
+            
+            let searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            let filterType = document.getElementById('filterType').value;
+
+            function normalizeText(text) {
+                return text
+                    .normalize("NFD") // Descompone caracteres acentuados
+                    .replace(/[\u0300-\u036f]/g, "") // Elimina los acentos
+                    .replace(/\s+/g, '-') // Reemplaza espacios por guiones
+                    .toLowerCase(); // Convierte todo a minúsculas
+            }
+
+            if (filterType === 'nombre' && searchQuery !== '') {
+                // Buscar el producto por nombre
+                let productElement = document.getElementById(normalizeText(searchQuery));
+                if (productElement) {
+                    productElement.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('Producto no encontrado');
+                }
+            } else {
+                // Buscar por categoría
+                let categoryElement = document.getElementById(filterType);
+                if (categoryElement) {
+                    categoryElement.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('Categoría no encontrada');
+                }
+            }
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

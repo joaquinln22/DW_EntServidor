@@ -1,110 +1,124 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\Categoria;
+use App\Models\Anuncio;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Importar Auth
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
-    // Mostrar todos los productos en orden descendente por fecha de creación
+    // Mostrar todos los productos
     public function index()
     {
-        $productos = Producto::orderBy('created_at', 'desc')->get();
+        $productos = Producto::with('categoria')->get();
         return view('productos.index', compact('productos'));
     }
 
+    // Vista pública de la carta con productos y anuncios activos
     public function indexPublico(Request $request)
     {
         if (Auth::check()) {
             return redirect()->route('productos.index');
         }
 
-        // Obtener todas las categorías con sus productos
+        // Obtener categorías con sus productos
         $categorias = Categoria::with('productos')->get();
-
-        // Iniciar la consulta de productos
         $query = Producto::query();
 
-        // Verificar el tipo de filtro seleccionado
+        // Obtener anuncios activos (entre fecha_inicio y fecha_fin)
+        $anuncios = Anuncio::whereDate('fecha_inicio', '<=', now())
+                            ->whereDate('fecha_fin', '>=', now())
+                            ->orderBy('fecha_inicio', 'asc')
+                            ->get();
+
+        // Filtrar productos según la búsqueda
         $filterType = $request->input('filter_type');
 
         if ($filterType == 'nombre' && $request->filled('search')) {
-            // Buscar por nombre del producto
             $query->where('nombre', 'like', '%' . $request->search . '%');
-        } elseif (in_array($filterType, ['Entrantes', 'Platos principales', 'Bebidas', 'Postres'])) {
-            // Filtrar por categoría (basado en el nombre, no en el ID)
+        } elseif ($filterType) {
+            // Filtrar por categoría usando el nombre
             $query->where('categoria', $filterType);
         }
 
-        // Obtener los productos filtrados
         $productos = $query->get();
-
-        return view('carta', compact('productos', 'categorias'));
+        
+        return view('carta', compact('productos', 'categorias', 'anuncios'));
     }
 
-    // Mostrar formulario para crear un nuevo producto
+    // Formulario de creación
     public function create()
     {
         $categorias = Categoria::all();
         return view('productos.create', compact('categorias'));
     }
 
-    // Guardar un nuevo producto en la base de datos
+    // Guardar un nuevo producto
     public function store(Request $request)
     {
-        // Validación de los datos antes de guardar
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'categoria_id' => 'required|exists:categorias,id',
+            'categoria' => 'required|exists:categorias,nombre',
             'precio' => 'required|numeric|min:0',
-            'imagen' => 'nullable|url',
-            'stock' => 'required|integer|min:0'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock' => 'required|integer|min:0',
         ]);
-
-        // Crear el producto con los datos validados
-        Producto::create($request->all());
-
+    
+        $producto = new Producto($request->except('imagen'));
+    
+        if ($request->hasFile('imagen')) {
+            $producto->imagen = $request->file('imagen')->store('productos', 'public');
+        }
+    
+        $producto->save();
+    
         return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
 
-    // Mostrar formulario de edición de un producto
+    // Formulario de edición
     public function edit(Producto $producto)
     {
         $categorias = Categoria::all();
         return view('productos.edit', compact('producto', 'categorias'));
     }
 
-    // Actualizar los datos de un producto
+    // Actualizar producto
     public function update(Request $request, Producto $producto)
     {
-        // Validación antes de actualizar
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'categoria_id' => 'required|exists:categorias,id',
+            'categoria' => 'required|exists:categorias,nombre',
             'precio' => 'required|numeric|min:0',
-            'imagen' => 'nullable|url',
-            'stock' => 'required|integer|min:0'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock' => 'required|integer|min:0',
         ]);
-
-        // Actualizar el producto con los nuevos datos
-        $producto->update($request->all());
-
+    
+        $producto->fill($request->except('imagen'));
+    
+        if ($request->hasFile('imagen')) {
+            if ($producto->imagen) {
+                Storage::disk('public')->delete($producto->imagen);
+            }
+            $producto->imagen = $request->file('imagen')->store('productos', 'public');
+        }
+    
+        $producto->save();
+    
         return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
     }
 
-    // Eliminar un producto de la base de datos
+    // Eliminar producto
     public function destroy(Producto $producto)
     {
-        if (!$producto) {
-            return redirect()->route('productos.index')->with('error', 'El producto no existe.');
+        if ($producto->imagen) {
+            Storage::disk('public')->delete($producto->imagen);
         }
 
-        // Eliminar el producto
         $producto->delete();
 
         return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente.');
