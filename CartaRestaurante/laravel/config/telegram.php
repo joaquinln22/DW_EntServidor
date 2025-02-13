@@ -216,4 +216,5 @@ return [
         // 'stop' => Acme\Project\Commands\StopCommand::class,
         // 'status' => Acme\Project\Commands\StatusCommand::class,
     ],
+    'chat_id' => env('TELEGRAM_CHAT_ID', '-1001234567890'),
 ];

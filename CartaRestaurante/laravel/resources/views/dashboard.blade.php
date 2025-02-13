@@ -9,23 +9,26 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <ul>
-                        <li>
-                            <a href="{{ route('productos.index') }}" class="text-blue-500 hover:underline">
+                    <ol style="list-style: circle; color:#4f46e5;">
+                        <li class="mb-4">
+                            <a href="{{ route('productos.index') }}" style="color: white; text-decoration: none;"
+                            onmouseover="this.style.color='#4f46e5'" onmouseout="this.style.color='white'">
                                 Gestión de Productos
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('categorias.index') }}" class="text-blue-500 hover:underline">
+                        <li class="mb-4">
+                            <a href="{{ route('categorias.index') }}" style="color: white; text-decoration: none;"
+                            onmouseover="this.style.color='#4f46e5'" onmouseout="this.style.color='white'">
                                 Gestión de Categorías
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('anuncios.index') }}" class="text-blue-500 hover:underline">
+                            <a href="{{ route('anuncios.index') }}" style="color: white; text-decoration: none;"
+                            onmouseover="this.style.color='#4f46e5'" onmouseout="this.style.color='white'">
                                 Gestión de Anuncios
                             </a>
                         </li>
-                    </ul>
+                    </ol>
                 </div>
             </div>
         </div>
