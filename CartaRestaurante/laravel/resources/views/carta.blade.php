@@ -52,7 +52,7 @@
                         <div class="col-md-4 mb-3">
                             <div class="card" id="{{ Str::slug($producto->nombre) }}">
                                 @if($producto->imagen)
-                                    <img src="{{ asset('storage/' . $producto->imagen) }}" class="card-img-top" alt="{{ $producto->nombre }}">
+                                    <img src="{{ asset('storage/' . $producto->imagen) }}" class="card-img-top img-fluid" alt="{{ $producto->nombre }}">
                                 @endif
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $producto->nombre }}</h5>
