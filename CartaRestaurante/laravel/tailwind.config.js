@@ -16,5 +16,7 @@ module.exports = {
         },
     },
 
+    darkMode: 'class', // Habilitar modo oscuro manualmente con la clase "dark"
+
     plugins: [require('@tailwindcss/forms')],
 };

@@ -5,10 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante LTGÜ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{{ asset('storage/fondo_carta.jpg') }}");
+             /* Ajusta el tamaño para cubrir toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-repeat: repeat; /* Evita que la imagen se repita */
+            background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
+        }
+        h1{
+            font-size: 40px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Carta de productos</h1>
+        <div style="background-color:#111827; width: 50%; border-radius: 10px">
+            <h1 class="text-center mb-4">Carta de productos</h1>
+        </div>
+        
 
         <!-- Sección de Anuncios Activos -->
         @if($anuncios->count() > 0)
