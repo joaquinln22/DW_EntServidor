@@ -5,6 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111827;
+            color: white;
+        }
+        .container {
+            background-color: #1F2937;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control, .form-select {
+            background-color: #374151;
+            color: white;
+            border: none;
+        }
+        .form-control::placeholder {
+            color: #9CA3AF;
+        }
+        .btn-primary {
+            background-color: #2563EB; 
+            border: none;
+        }
+        .btn-secondary {
+            background-color: #4B5563;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #EF4444;
+            border: none;
+        }
+        .alert {
+            background-color: #B91C1C;
+            color: white;
+            border: none;
+        }
+        .img-thumbnail {
+            max-height: 200px;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -20,7 +67,7 @@
             </div>
         @endif
 
-        <!-- Nota: Agregar enctype="multipart/form-data" para manejar la subida de archivos -->
+        <!-- Formulario de edición de producto -->
         <form action="{{ route('productos.update', $producto) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -31,7 +78,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Descripción</label>
-                <textarea name="descripcion" class="form-control" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
+                <textarea name="descripcion" class="form-control" rows="3" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">Precio (€)</label>
@@ -52,19 +99,32 @@
                     @endforeach
                 </select>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Imagen del producto</label>
-                <!-- Mostrar la imagen actual si existe -->
                 @if ($producto->imagen)
                     <div class="mb-3">
-                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-thumbnail" style="max-height: 200px;">
+                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-thumbnail">
                     </div>
                 @endif
-                <!-- Input para subir una nueva imagen -->
                 <input type="file" name="imagen" class="form-control" accept="image/*">
             </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
-            <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
+
+            <!-- Botones alineados -->
+            <div class="d-flex justify-content-between">
+                <!-- Botón de cerrar sesión -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+                </form>
+
+                <div>
+                    <!-- Botón de cancelar -->
+                    <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <!-- Botón de actualizar -->
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+            </div>
         </form>
     </div>
 
