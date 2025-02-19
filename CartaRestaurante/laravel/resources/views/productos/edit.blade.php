@@ -6,50 +6,116 @@
     <title>Editar Producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Transición para una transición más fluida */
         body {
-            background-color: #111827;
-            color: white;
+            transition: background-color 0.3s, color 0.3s;
         }
+
         .container {
-            background-color: #1F2937;
             padding: 20px;
             border-radius: 10px;
             margin-top: 50px;
             max-width: 600px;
         }
+
         .form-label {
             font-weight: bold;
         }
+
         .form-control, .form-select {
-            background-color: #374151;
-            color: white;
             border: none;
         }
-        .form-control::placeholder {
-            color: #9CA3AF;
-        }
-        .btn-primary {
-            background-color: #2563EB; 
-            border: none;
-        }
-        .btn-secondary {
-            background-color: #4B5563;
-            border: none;
-        }
-        .btn-danger {
-            background-color: #EF4444;
-            border: none;
-        }
-        .alert {
-            background-color: #B91C1C;
-            color: white;
-            border: none;
-        }
+
         .img-thumbnail {
             max-height: 200px;
             border-radius: 10px;
             display: block;
             margin: 0 auto;
+        }
+
+        /* Modo Claro */
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #f8f9fa;
+                color: black;
+            }
+
+            .container {
+                background-color: #ffffff;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-control, .form-select {
+                background-color: white;
+                color: black;
+                border: 1px solid #ced4da;
+            }
+
+            .form-control::placeholder {
+                color: #6c757d;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .btn-secondary {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            .alert {
+                background-color: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+        }
+
+        /* Modo Oscuro */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827;
+                color: white;
+            }
+
+            .container {
+                background-color: #1F2937;
+            }
+
+            .form-control, .form-select {
+                background-color: #374151;
+                color: white;
+            }
+
+            .form-control::placeholder {
+                color: #9CA3AF;
+            }
+
+            .btn-primary {
+                background-color: #2563EB;
+                color: white;
+            }
+
+            .btn-secondary {
+                background-color: #4B5563;
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: #EF4444;
+                color: white;
+            }
+
+            .alert {
+                background-color: #B91C1C;
+                color: white;
+            }
         }
     </style>
 </head>

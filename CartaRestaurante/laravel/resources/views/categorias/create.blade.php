@@ -6,44 +6,104 @@
     <title>Crear Categoría</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Transición suave entre los modos */
         body {
-            background-color: #111827;
-            color: white;
+            transition: background-color 0.3s, color 0.3s;
         }
+
         .container {
-            background-color: #1F2937;
             padding: 20px;
             border-radius: 10px;
             margin-top: 50px;
             max-width: 600px;
         }
+
         .form-label {
             font-weight: bold;
         }
+
         .form-control, .form-select {
-            background-color: #374151;
-            color: white;
             border: none;
         }
-        .form-control::placeholder {
-            color: #9CA3AF;
-        }
-        .btn-primary {
-            background-color: #2563EB; 
+
+        .btn-primary, .btn-secondary, .btn-danger {
             border: none;
         }
-        .btn-secondary {
-            background-color: #4B5563;
-            border: none;
+
+        /* Modo claro */
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #f8f9fa;
+                color: black;
+            }
+
+            .container {
+                background-color: #ffffff;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-control, .form-select {
+                background-color: #ffffff;
+                color: black;
+                border: 1px solid #ced4da;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .btn-secondary {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            .alert {
+                background-color: #f8d7da;
+                color: #842029;
+            }
         }
-        .btn-danger {
-            background-color: #EF4444;
-            border: none;
-        }
-        .alert {
-            background-color: #B91C1C;
-            color: white;
-            border: none;
+
+        /* Modo oscuro */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827;
+                color: white;
+            }
+
+            .container {
+                background-color: #1F2937;
+            }
+
+            .form-control, .form-select {
+                background-color: #374151;
+                color: white;
+            }
+
+            .btn-primary {
+                background-color: #2563EB;
+                color: white;
+            }
+
+            .btn-secondary {
+                background-color: #4B5563;
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: #EF4444;
+                color: white;
+            }
+
+            .alert {
+                background-color: #B91C1C;
+                color: white;
+            }
         }
     </style>
 </head>

@@ -6,40 +6,119 @@
     <title>Gestión de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Transición suave entre los modos */
         body {
-            background-color: #111827;
-            color: white;
+            transition: background-color 0.3s, color 0.3s;
         }
+
         .container {
-            background-color: #1F2937;
             padding: 20px;
             border-radius: 10px;
             margin-top: 50px;
         }
+
         .table {
-            background-color: #374151;
-            color: white;
             border-radius: 10px;
             overflow: hidden;
         }
-        .table th {
-            background-color: #4B5563;
-            color: white;
-        }
-        .btn-success {
-            background-color: #10B981; border: none; 
-        }
-        .btn-warning { 
-            background-color: #F59E0B; border: none;
-            margin-bottom: 5px;
-        }
-        .btn-danger {
-            background-color: #EF4444; border: none; 
-        }
-        .btn-home {
-            background-color: #3B82F6;
+
+        .btn-success, .btn-warning, .btn-danger, .btn-home {
             border: none;
-            margin-left: 10px;
+        }
+
+        /* Modo claro */
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #f8f9fa;
+                color: black;
+            }
+
+            .container {
+                background-color: #ffffff;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .table {
+                background-color: white;
+                color: black;
+            }
+
+            .table th {
+                background-color: #e9ecef;
+                color: black;
+            }
+
+            .btn-success {
+                background-color: #198754;
+                color: white;
+            }
+
+            .btn-warning {
+                background-color: #ffc107;
+                color: black;
+            }
+
+            .btn-danger {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            .btn-home {
+                background-color: #0d6efd;
+                color: white;
+            }
+
+            .alert-success {
+                background-color: #d1e7dd;
+                color: #0f5132;
+            }
+        }
+
+        /* Modo oscuro */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827;
+                color: white;
+            }
+
+            .container {
+                background-color: #1F2937;
+            }
+
+            .table {
+                background-color: #374151;
+                color: white;
+            }
+
+            .table th {
+                background-color: #4B5563;
+                color: white;
+            }
+
+            .btn-success {
+                background-color: #10B981;
+                color: white;
+            }
+
+            .btn-warning {
+                background-color: #F59E0B;
+                color: black;
+            }
+
+            .btn-danger {
+                background-color: #EF4444;
+                color: white;
+            }
+
+            .btn-home {
+                background-color: #3B82F6;
+                color: white;
+            }
+
+            .alert-success {
+                background-color: #047857;
+                color: white;
+            }
         }
     </style>
 </head>
